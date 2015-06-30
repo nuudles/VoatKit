@@ -1,34 +1,40 @@
 # VoatKit
-An Objective-C [voat.co](voat.co) API wrapper based on [RedditKit](https://github.com/samsymons/RedditKit). This project is compatible and has been tested with iOS 7.0+. 
+An Objective-C [voat.co](voat.co) API wrapper based on [RedditKit](https://github.com/samsymons/RedditKit). This project is compatible and has been tested with iOS 7.0+. Please note: not all features of the wrapper have been tested because the API itself is being developed.
 
 Installation
 =======
-Add all files with the VK prefix into your project. In the future the installation process will be easier.
-
-VoatKit makes use of AFNetworking and Mantle which can both be added using Cocoapods and the given Podfile. 
+Clone the repository to your desktop. All relevant files are provided in the *Classes* directory. If you wish to use this wrapper, all those classs must be present in your project. An example project is provided, but has not yet been implemented.
 
 TODO
 =======
-
- - Implement all interfaces
+ - Test the message API wrapper
  - Optomization
+ - Clean code, standardize code structure
 
 ------------
 License
 =======
-Copyright 2015 Amar Ramachandran
+The MIT License (MIT)
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+Copyright (c) 2015 Amar Ramachandran
 
-    http://www.apache.org/licenses/LICENSE-2.0
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 **RedditKit**
 Copyright (c) 2013 Sam Symons (http://samsymons.com/)
