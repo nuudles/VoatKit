@@ -6,7 +6,7 @@
 //  Copyright © 2015 AmarJayR. All rights reserved.
 //
 
-#import "Mantle.h"
+#import <Mantle/Mantle.h>
 
 @interface VKUser : MTLModel <MTLJSONSerializing>
 

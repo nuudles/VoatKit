@@ -7,7 +7,7 @@
 //
 
 
-#import "AFURLResponseSerialization.h"
+#import <AFNetworking/AFURLResponseSerialization.h>
 
 @interface VKResponseSerializer : AFHTTPResponseSerializer
 
