@@ -15,7 +15,7 @@
     NSDictionary *keyPaths = @{
                                @"submissionID": @"id",
                                @"commentCount": @"commentCount",
-                               @"userName": @"upVotes",
+                               @"userName": @"userName",
                                @"subverse": @"subverse",
                                @"thumbnail": @"thumbnail",
                                @"title": @"title",
