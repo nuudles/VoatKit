@@ -6,7 +6,7 @@
 //  Copyright © 2015 AmarJayR. All rights reserved.
 //
 
-#import "AFHTTPSessionManager.h"
+#import <AFNetworking/AFHTTPSessionManager.h>
 #import "VKCompletionBlocks.h"
 #import "VKUser.h"
 

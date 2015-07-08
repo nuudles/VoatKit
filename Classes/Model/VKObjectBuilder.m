@@ -9,7 +9,7 @@
 #import "VKObjectBuilder.h"
 #import "VKThing.h"
 #import "VKUser.h"
-#import "Mantle.h"
+#import <Mantle/Mantle.h>
 
 @implementation VKObjectBuilder
 

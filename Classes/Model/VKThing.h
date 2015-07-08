@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Mantle.h"
+#import <Mantle/Mantle.h>
 
 @interface VKThing : MTLModel <MTLJSONSerializing>
 

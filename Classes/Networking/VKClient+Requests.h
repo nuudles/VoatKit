@@ -7,7 +7,7 @@
 //
 
 #import "VKClient.h"
-#import "AFHTTPSessionManager.h"
+#import <AFNetworking/AFHTTPSessionManager.h>
 #import "VKSearchOptions.h"
 
 typedef void(^VKRequestCompletionBlock)(NSHTTPURLResponse *response, id responseObject, NSError *error);
