@@ -35,6 +35,8 @@ NSString * const VKClientErrorDomain = @"VKClientErrorDomain";
         self.requestSerializer = [AFHTTPRequestSerializer serializer];
         self.responseSerializer = [VKResponseSerializer serializer];
         
+        
+        
         AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
         policy.allowInvalidCertificates = YES;
         self.securityPolicy = policy;

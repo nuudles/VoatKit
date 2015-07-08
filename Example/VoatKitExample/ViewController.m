@@ -19,7 +19,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    
+    [[VKClient sharedClient] setApiKey:@"20xPvn9Q+VchKYoE9gfvWw=="];
+    [[VKClient sharedClient] submissionsInSubverseWithName:@"_all" searchOptions:nil completion:^(NSArray *collection, VKSearchOptions *searchOptions, NSError *error) {
+        NSLog(@"RECEIVED RESPONSE %@ WITH ERROR %@", collection, error);
+        NSLog(@"DDATE: %@", [collection[0] creationDate]);
+
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
