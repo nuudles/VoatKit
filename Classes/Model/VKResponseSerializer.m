@@ -29,25 +29,23 @@
 {    
     NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
+    NSError *responseError = [VKClient errorFromResponse:(NSHTTPURLResponse *)response responseString:responseString];
+    
+    if (responseError && error != NULL) {
+        *error = responseError;
+        return nil;
+    }
+    
+    
     if ([[[response allHeaderFields] objectForKey:@"Content-Type"] rangeOfString:@"application/json"].location == NSNotFound) {
         return nil;
     }
     
     // Attempt to parse the JSON:
-    
     NSError *parseError = nil;
     NSDictionary *responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&parseError];
     
     if (parseError) {
-        NSError *responseError = [VKClient errorFromResponse:(NSHTTPURLResponse *)response responseString:responseString];
-        
-        if (responseError && error != NULL)
-        {
-            *error = responseError;
-            return nil;
-        }
-    }
-    else {
         NSError *responseError = [VKClient errorFromResponse:(NSHTTPURLResponse *)response responseString:responseString];
         
         if (responseError && error != NULL)
