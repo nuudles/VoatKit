@@ -28,9 +28,9 @@
 {
     NSError *error = nil;
 
-    if (JSON[@"bio"]) {
+    if (JSON[@"data"][@"bio"]) {
         //Object type is VKUser
-        id model = [MTLJSONAdapter modelOfClass:[VKUser class] fromJSONDictionary:JSON error:&error];
+        id model = [MTLJSONAdapter modelOfClass:[VKUser class] fromJSONDictionary:JSON[@"data"] error:&error];
         
         if (!error)
         {
