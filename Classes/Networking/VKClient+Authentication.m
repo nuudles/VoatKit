@@ -80,6 +80,8 @@
     
     return [self userWithUsername:username completion:^(id object, NSError *error) {
         self.currentUser = object;
+        if (completion)
+            completion(error);
     }];
 }
 
@@ -108,7 +110,9 @@
 }
 
 - (BOOL)isSignedIn {
-    return true;
+    if (self.currentUser)
+        return true;
+    return false;
 }
 
 - (void)signOut {
