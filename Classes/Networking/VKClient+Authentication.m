@@ -103,7 +103,7 @@
     if(![self accessToken])
         return false;
     
-    if ([[self expirationDate] timeIntervalSince1970]-600 < [[NSDate date] timeIntervalSince1970])
+    if ([[self expirationDate] timeIntervalSince1970]-(60*60*24) < [[NSDate date] timeIntervalSince1970])
         return false;
     
     return true;
