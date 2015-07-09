@@ -9,9 +9,9 @@
 #import "VKCreated.h"
 
 typedef NS_ENUM(NSUInteger, VKVoteStatus) {
+    VKVoteStatusNone,
     VKVoteStatusUpvoted,
-    VKVoteStatusDownvoted,
-    VKVoteStatusNone
+    VKVoteStatusDownvoted
 };
 
 @interface VKVotable : VKCreated

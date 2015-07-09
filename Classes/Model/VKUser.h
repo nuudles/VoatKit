@@ -7,6 +7,7 @@
 //
 
 #import <Mantle/Mantle.h>
+#import "VKCountable.h"
 
 @interface VKUser : MTLModel <MTLJSONSerializing>
 
@@ -29,5 +30,30 @@
  The badges the user has accumulated
  */
 @property (nonatomic, strong, readonly) NSArray *badges;
+
+/**
+ The date that the user registered
+ */
+@property (nonatomic, strong, readonly) NSDate *registrationDate;
+
+/**
+ The point count for the users' comments.
+ */
+@property (nonatomic, strong, readonly) VKCountable *commentPoints;
+
+/**
+ The point count for the users' submissions.
+ */
+@property (nonatomic, strong, readonly) VKCountable *submissionPoints;
+
+/**
+ The count for the users' comment voting.
+ */
+@property (nonatomic, strong, readonly) VKCountable *commentVoting;
+
+/**
+ The count for the users' submission voting.
+ */
+@property (nonatomic, strong, readonly) VKCountable *submissionVoting;
 
 @end
