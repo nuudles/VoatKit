@@ -8,6 +8,7 @@
 //
 
 #import "VKUser.h"
+#import "VKCountable.h"
 
 @implementation VKUser
 
@@ -29,6 +30,22 @@
 
 
 #pragma mark - MTLModel
+
++ (NSValueTransformer *)commentPointsJSONTransformer {
+    return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:VKCountable.class];
+}
+
++ (NSValueTransformer *)submissionPointsJSONTransformer {
+    return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:VKCountable.class];
+}
+
++ (NSValueTransformer *)commentVotingJSONTransformer {
+    return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:VKCountable.class];
+}
+
++ (NSValueTransformer *)submissionVotingJSONTransformer {
+    return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:VKCountable.class];
+}
 
 + (NSValueTransformer *)registrationDateJSONTransformer {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
