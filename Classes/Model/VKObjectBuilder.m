@@ -30,7 +30,7 @@
 
     if (JSON[@"bio"]) {
         //Object type is VKUser
-        id model = [MTLJSONAdapter modelOfClass:[VKUser class] fromJSONDictionary:JSON[@"data"] error:&error];
+        id model = [MTLJSONAdapter modelOfClass:[VKUser class] fromJSONDictionary:JSON error:&error];
         
         if (!error)
         {
