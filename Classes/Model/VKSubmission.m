@@ -21,7 +21,8 @@
                                @"title": @"title",
                                @"postType": @"type",
                                @"url": @"url",
-                               @"content": @"content"
+                               @"content": @"content",
+                               @"formattedContent": @"formattedContent",
                                };
     
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];

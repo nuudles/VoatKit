@@ -61,5 +61,9 @@ The type of submission.
  */
 @property (nonatomic, copy, readonly) NSString* content;
 
+/**
+ The formatted (MarkDown, Voat Content Processor) content of this item. This content is typically formatted into HTML output.
+ */
+@property (nonatomic, copy, readonly) NSString* formattedContent;
 
 @end
