@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "VoatKit.h"
+#import "VKSearchOptions.h"
 
 @interface ViewController ()
 
