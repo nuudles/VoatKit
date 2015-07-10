@@ -16,6 +16,7 @@
 #import "VKClient+Submissions.h"
 #import "VKClient+Subverses.h"
 #import "VKClient+Users.h"
+#import "VKClient+Vote.h"
 #import "VKCompletionBlocks.h"
 #import "VKObjectBuilder.h"
 #import "VKResponseSerializer.h"
