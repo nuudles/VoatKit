@@ -31,6 +31,18 @@ const NSInteger VKClientUnkownError = -1;
     NSParameterAssert(response);
     NSParameterAssert(responseString);
     
+    NSError *jsonError;
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseString
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&jsonError];
+    if (jsonError)
+        return jsonError;
+    
+    if (![json objectForKey:@"error"]) //Does not have an error key
+        return nil;
+    
+    
+    
     if ([VKClient string:responseString containsSubstring:@"Api key is missing or invalid"]) return [VKClient authenticationRequiredError];
     
     switch (response.statusCode)
