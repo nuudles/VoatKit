@@ -7,7 +7,7 @@
 //
 
 #import "VKSearchOptions.h"
-
+#import <objc/runtime.h>
 
 
 NSString * VKStringFromTimeSortingMethod(VKSortSpanMethod sortingMethod)
@@ -57,21 +57,48 @@ NSString * VKStringFromUserContentSortingMethod(VKUserContentSortingMethod sorti
 -(NSDictionary *)dictionaryValue {
     NSMutableDictionary* keyValuePairs = [[NSMutableDictionary alloc] init];
     
-    if(self.spanMethod)
-        [keyValuePairs setObject:@(self.spanMethod-1) forKey:@"span"];
-    if(self.sortMethod)
-        [keyValuePairs setObject:@(self.sortMethod-1) forKey:@"sort"];
+    if(self.span)
+        [keyValuePairs setObject:@(self.span-1) forKey:@"span"];
+    if(self.sort)
+        [keyValuePairs setObject:@(self.sort-1) forKey:@"sort"];
     if(self.count)
         [keyValuePairs setObject:self.count forKey:@"count"];
     if(self.index)
         [keyValuePairs setObject:self.index forKey:@"index"];
     if(self.page)
         [keyValuePairs setObject:self.page forKey:@"page"];
-    if(self.commentDepth != NULL)
-        [keyValuePairs setObject:self.commentDepth forKey:@"depth"];
+    if(self.depth != NULL)
+        [keyValuePairs setObject:self.depth forKey:@"depth"];
     
     return keyValuePairs;
 }
+
+
+-(void)searchOptionsFromQueryString:(NSString*) queryString {
+    //span=1&sort=2
+    NSArray* keyValuePairs = [queryString componentsSeparatedByString:@"&"];
+    NSMutableDictionary* dictionaryPairs = [[NSMutableDictionary alloc] initWithCapacity:[keyValuePairs count]];
+    
+    for (NSString* keyValue in keyValuePairs) {
+        NSString* key = [keyValue componentsSeparatedByString:@"="][0];
+        if (![self respondsToSelector:NSSelectorFromString(key)]) {
+            continue;
+        }
+        
+        NSString* value = [keyValue componentsSeparatedByString:@"="][1];
+        
+        NSLog(@"CLASS: %@", [[self valueForKey:key] class]);
+        if ([[[self valueForKey:key] class] isSubclassOfClass:[NSNumber class]]) {
+            NSLog(@"IS SUBCLASS: %@", key);
+            [self setValue:[NSNumber numberWithInteger:[value integerValue]] forKey:key];
+            continue;
+        }
+        
+        [self setValue:value forKey:key];
+        
+    }
+}
+
 
 
 @end

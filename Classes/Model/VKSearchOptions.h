@@ -39,12 +39,12 @@ extern NSString * RKStringFromUserContentSortingMethod(VKUserContentSortingMetho
  The sorting method for user content. This affects the order in which user content is returned.
  
  */
-@property (nonatomic, assign) VKUserContentSortingMethod sortMethod;
+@property (nonatomic, assign) VKUserContentSortingMethod sort;
 
 /**
  The timeframe to sort by.
  */
-@property (nonatomic, assign) VKSortSpanMethod spanMethod;
+@property (nonatomic, assign) VKSortSpanMethod span;
 
 /**
  The index to start from
@@ -60,7 +60,7 @@ extern NSString * RKStringFromUserContentSortingMethod(VKUserContentSortingMetho
 /**
  Specifies the depth of comment tree to retrieve. Used only for comment queries.
  */
-@property (nonatomic, assign) NSNumber* commentDepth;
+@property (nonatomic, assign) NSNumber* depth;
 
 
 /**
@@ -69,5 +69,7 @@ extern NSString * RKStringFromUserContentSortingMethod(VKUserContentSortingMetho
  *  @return NSDictionary object to append to the end of the URL.
  */
 -(NSDictionary *)dictionaryValue;
+
+-(void)searchOptionsFromQueryString:(NSString*) queryString;
 
 @end

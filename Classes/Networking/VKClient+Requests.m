@@ -123,6 +123,7 @@
                 NSArray *objects = [self objectsFromListingResponse:response];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"PARAMETERS");
                     completion(objects, nil, nil);
                 });
             });
@@ -155,7 +156,7 @@
                 NSArray *objects = [self objectsFromListingResponse:response];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(objects, nil, nil);
+                    completion(objects, searchOptions, nil);
                 });
             });
         }
