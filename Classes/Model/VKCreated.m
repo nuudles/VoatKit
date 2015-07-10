@@ -23,11 +23,11 @@
 
 //TODO: REMAKE THIS DEPENDING ON API CHANGE
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
-    if (JSONDictionary[@"name"] != nil && JSONDictionary[@"subscriberCount"] != nil)
+    if (JSONDictionary[@"data"][@"name"] != nil && JSONDictionary[@"data"][@"subscriberCount"] != nil)
         return [VKSubverse class];
     
     
-    if (JSONDictionary[@"upVotes"] != nil && JSONDictionary[@"downVotes"] != nil)
+    if (JSONDictionary[@"data"][@"upVotes"] != nil && JSONDictionary[@"data"][@"downVotes"] != nil)
         return [VKVotable class];
     
     
