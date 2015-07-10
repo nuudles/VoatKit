@@ -32,7 +32,8 @@ const NSInteger VKClientUnkownError = -1;
     NSParameterAssert(responseString);
     
     NSError *jsonError;
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseString
+    NSData *responseData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseData
                                                          options:NSJSONReadingMutableContainers
                                                            error:&jsonError];
     if (jsonError)
