@@ -85,7 +85,7 @@
             {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     NSDictionary *response = responseObject;
-                    id object = [VKObjectBuilder objectFromJSON:response];
+                    id object = [VKObjectBuilder objectFromJSON:response[@"data"]];
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         completion(object, nil);
