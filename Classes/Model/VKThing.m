@@ -20,10 +20,10 @@
 
 //TODO: REMAKE THIS DEPENDING ON API CHANGE
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
-    if (JSONDictionary[@"data"][@"creationDate"] != nil || JSONDictionary[@"data"][@"date"] != nil)
+    if (JSONDictionary[@"creationDate"] != nil || JSONDictionary[@"date"] != nil)
         return [VKCreated class];
 
-    if (JSONDictionary[@"data"][@"recipient"] != nil)
+    if (JSONDictionary[@"recipient"] != nil)
         return [VKMessage class];
 
     

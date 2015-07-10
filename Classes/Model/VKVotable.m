@@ -51,10 +51,10 @@
 
 //TODO: REMAKE THIS DEPENDING ON API CHANGE
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
-    if (JSONDictionary[@"data"][@"childCount"] != nil && JSONDictionary[@"data"][@"level"] != nil)
+    if (JSONDictionary[@"childCount"] != nil && JSONDictionary[@"level"] != nil)
         return [VKComment class];
     
-    if (JSONDictionary[@"data"][@"commentCount"] != nil && JSONDictionary[@"data"][@"title"] != nil)
+    if (JSONDictionary[@"commentCount"] != nil && JSONDictionary[@"title"] != nil)
         return [VKSubmission class];
     
     
