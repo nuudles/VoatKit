@@ -30,7 +30,7 @@
 /**
  The subscriber count.
  */
-@property (nonatomic, assign, readonly) NSUInteger subscriberCount;
+@property (nonatomic, copy, readonly) NSNumber* subscriberCount;
 
 /**
  The submission title.
