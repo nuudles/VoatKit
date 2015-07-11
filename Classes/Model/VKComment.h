@@ -59,5 +59,11 @@
  */
 @property (nonatomic, copy, readonly) NSString* content;
 
+/**
+ The formatted content of this item.
+ */
+@property (nonatomic, copy, readonly) NSString* formattedContent;
+
+
 
 @end

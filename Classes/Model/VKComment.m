@@ -21,7 +21,8 @@
                                @"childcount":@"childCount",
                                @"level":@"level",
                                @"content":@"content",
-                               @"date":@"date"
+                               @"date":@"date",
+                               @"formattedContent":@"formattedContent"
                                };
     
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:keyPaths];
