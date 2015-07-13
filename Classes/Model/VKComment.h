@@ -22,7 +22,7 @@
 @property (nonatomic, strong) NSDate* date;
 
 /**
- The parent comment ID. 
+ The parent comment ID.
  If null then comment is a root comment.
  */
 @property (nonatomic, copy, readonly) NSNumber* parentID;
@@ -49,7 +49,7 @@
 @property (nonatomic, copy, readonly) NSNumber* childcount;
 
 /**
- Level of the comment. 0 is root. 
+ Level of the comment. 0 is root.
  This value is relative to the parent comment. If you are loading mid-branch 0 will be returned for the starting position comment.
  */
 @property (nonatomic, copy, readonly) NSNumber* level;

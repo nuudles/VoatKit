@@ -20,6 +20,7 @@ extern const NSInteger VKClientErrorPermissionDenied;
 extern const NSInteger VKClientErrorConflict;
 
 extern const NSInteger VKClientErrorInternalServerError;
+extern const NSInteger VKClientErrorRecordNotFound;
 extern const NSInteger VKClientErrorBadGateway;
 extern const NSInteger VKClientErrorServiceUnavailable;
 extern const NSInteger VKClientErrorTimedOut;
@@ -77,4 +78,10 @@ extern const NSInteger VKClientUnkownError;
  Returns an error that occurs when we know there's an error but it does not fit any error type
  */
 + (NSError *)unkownError;
+
+
+/**
+ Returns an error that occurs when we know there's an error but it does not fit any error type
+ */
++ (NSError *)recordNotFound;
 @end

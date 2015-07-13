@@ -18,6 +18,7 @@ const NSInteger VKClientErrorRateLimited = 204;
 const NSInteger VKClientErrorInvalidName = 401;
 const NSInteger VKClientErrorPermissionDenied = 401;
 const NSInteger VKClientErrorConflict = 401;
+const NSInteger VKClientErrorRecordNotFound = 404;
 
 const NSInteger VKClientErrorInternalServerError = 501;
 const NSInteger VKClientErrorBadGateway = 502;
@@ -42,7 +43,7 @@ const NSInteger VKClientUnkownError = -1;
     if (![json objectForKey:@"error"]) //Does not have an error key
         return nil;
     
-    
+    NSLog(@"HAS ERROR: %@", responseString);
     
     if ([VKClient string:responseString containsSubstring:@"Api key is missing or invalid"]) return [VKClient authenticationRequiredError];
     
@@ -58,6 +59,9 @@ const NSInteger VKClientUnkownError = -1;
             if ([VKClient string:responseString containsSubstring:@"USER_REQUIRED"]) return [VKClient authenticationRequiredError];
             
             return [VKClient permissionDeniedError];
+            break;
+        case 404:
+            return [VKClient recordNotFound];
             break;
         case 409:
             return [VKClient conflictError];
@@ -83,6 +87,8 @@ const NSInteger VKClientUnkownError = -1;
     
     
     if ([VKClient string:responseString containsSubstring:@"error_description"]) return [VKClient permissionDeniedError];
+    
+    
     
     return nil;
 }
@@ -160,6 +166,12 @@ const NSInteger VKClientUnkownError = -1;
     return [NSError errorWithDomain:VKClientErrorDomain code:VKClientUnkownError userInfo:userInfo];
 }
 
++ (NSError *)recordNotFound
+{
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Record not found." failureReason:@"The requested record was not found by voat"];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorRecordNotFound userInfo:userInfo];
+}
+
 #pragma mark - Private
 
 + (BOOL)string:(NSString *)string containsSubstring:(NSString *)substring
@@ -172,5 +184,7 @@ const NSInteger VKClientUnkownError = -1;
 {
     return @{NSLocalizedDescriptionKey: NSLocalizedString(description, @""), NSLocalizedFailureReasonErrorKey: NSLocalizedString(failureReason, @"") };
 }
+
+
 
 @end
