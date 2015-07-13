@@ -26,8 +26,8 @@ typedef NS_ENUM(NSUInteger, VKSortSpanMethod) {
     VKTimeSortingMethodThisYear,
 };
 
-extern NSString * RKStringFromSortSpanMethod(VKSortSpanMethod sortingMethod);
-extern NSString * RKStringFromUserContentSortingMethod(VKUserContentSortingMethod sortingMethod);
+extern NSString * VKStringFromSortSpanMethod(VKSortSpanMethod sortingMethod);
+extern NSString * VKStringFromUserContentSortingMethod(VKUserContentSortingMethod sortingMethod);
 
 /**
  The total number of things to return. This is 25 by default, and limited to 50.
