@@ -58,6 +58,11 @@ extern NSString * VKStringFromUserContentSortingMethod(VKUserContentSortingMetho
 @property (nonatomic, assign) NSNumber* page;
 
 /**
+ The search value to match for submissions or comments
+ */
+@property (nonatomic, assign) NSString* search;
+
+/**
  Specifies the depth of comment tree to retrieve. Used only for comment queries.
  */
 @property (nonatomic, assign) NSNumber* depth;
