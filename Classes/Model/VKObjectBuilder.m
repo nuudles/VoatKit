@@ -9,6 +9,7 @@
 #import "VKObjectBuilder.h"
 #import "VKThing.h"
 #import "VKUser.h"
+#import "VKSubscription.h"
 #import <Mantle/Mantle.h>
 
 @implementation VKObjectBuilder
@@ -32,6 +33,20 @@
         //Object type is VKUser
         id model = [MTLJSONAdapter modelOfClass:[VKUser class] fromJSONDictionary:JSON error:&error];
         
+        if (!error)
+        {
+            return model;
+        }
+        else
+        {
+            NSLog(@"Failed to build model: %@", error);
+            return nil;
+        }
+    }
+    else if (JSON[@"type"] != nil && JSON[@"typeName"] != nil && JSON[@"name"] != nil) {
+        //Object type is VKSubscription
+        id model = [MTLJSONAdapter modelOfClass:[VKSubscription class] fromJSONDictionary:JSON error:&error];
+
         if (!error)
         {
             return model;
