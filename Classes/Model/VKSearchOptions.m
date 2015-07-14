@@ -67,6 +67,8 @@ NSString * VKStringFromUserContentSortingMethod(VKUserContentSortingMethod sorti
         [keyValuePairs setObject:self.index forKey:@"index"];
     if(self.page)
         [keyValuePairs setObject:self.page forKey:@"page"];
+    if(self.search)
+        [keyValuePairs setObject:self.page forKey:@"search"];
     if(self.depth != NULL)
         [keyValuePairs setObject:self.depth forKey:@"depth"];
     

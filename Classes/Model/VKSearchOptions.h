@@ -26,8 +26,8 @@ typedef NS_ENUM(NSUInteger, VKSortSpanMethod) {
     VKTimeSortingMethodThisYear,
 };
 
-extern NSString * RKStringFromSortSpanMethod(VKSortSpanMethod sortingMethod);
-extern NSString * RKStringFromUserContentSortingMethod(VKUserContentSortingMethod sortingMethod);
+extern NSString * VKStringFromSortSpanMethod(VKSortSpanMethod sortingMethod);
+extern NSString * VKStringFromUserContentSortingMethod(VKUserContentSortingMethod sortingMethod);
 
 /**
  The total number of things to return. This is 25 by default, and limited to 50.
@@ -56,6 +56,11 @@ extern NSString * RKStringFromUserContentSortingMethod(VKUserContentSortingMetho
  @note: setting this will override the index property
  */
 @property (nonatomic, assign) NSNumber* page;
+
+/**
+ The search value to match for submissions or comments
+ */
+@property (nonatomic, assign) NSString* search;
 
 /**
  Specifies the depth of comment tree to retrieve. Used only for comment queries.
