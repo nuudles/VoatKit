@@ -43,15 +43,16 @@ const NSInteger VKClientUnkownError = -1;
     if (![json objectForKey:@"error"]) //Does not have an error key
         return nil;
     
-    NSLog(@"HAS ERROR: %@", responseString);
     
     if ([VKClient string:responseString containsSubstring:@"Api key is missing or invalid"]) return [VKClient authenticationRequiredError];
+    
+    if ([VKClient string:responseString containsSubstring:@"ApiThrottleLimit"]) return [VKClient rateLimitedError];
+
     
     switch (response.statusCode)
     {
         case 400:
             if ([VKClient string:responseString containsSubstring:@"Credentials not found."]) return [VKClient invalidCredentialsError];
-            if ([VKClient string:responseString containsSubstring:@"ApiThrottleLimit"]) return [VKClient rateLimitedError];
             if ([VKClient string:responseString containsSubstring:@"NotFound"]) return [VKClient invalidNameError];
             
             break;
