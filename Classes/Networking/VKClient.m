@@ -32,7 +32,12 @@ NSString * const VKClientErrorDomain = @"VKClientErrorDomain";
 {
     if (self = [super initWithBaseURL:[[self class] APIBaseHTTPSURL]])
     {
-        self.requestSerializer = [AFHTTPRequestSerializer serializer];
+        AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
+        
+        [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        
+        self.requestSerializer = requestSerializer;
         self.responseSerializer = [VKResponseSerializer serializer];
         
         
