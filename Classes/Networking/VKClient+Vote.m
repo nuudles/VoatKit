@@ -2,8 +2,8 @@
 //  VKClient+Vote.m
 //  VoatKit
 //
-//  Created by Christopher Luu on 7/9/15.
-//
+//  Created by Amar Ramachandran on 6/26/15.
+//  Copyright © 2015 AmarJayR. All rights reserved.
 //
 
 #import "VKClient+Vote.h"
@@ -60,7 +60,7 @@ static NSString *const VKClientVoteTypeSubmission = @"submission";
 
 - (NSURLSessionDataTask *)submitVote:(VKVote)vote forType:(NSString *)type withID:(NSNumber *)contentID completion:(VKCompletionBlock)completion
 {
-    return [self postPath:[NSString stringWithFormat:@"api/v1/vote/%@/%@/%d", type, contentID, vote] parameters:nil completion:^(NSHTTPURLResponse *response, id responseObject, NSError *error) {
+    return [self postPath:[NSString stringWithFormat:@"api/v1/vote/%@/%@/%ld", type, contentID, (long)vote] parameters:nil completion:^(NSHTTPURLResponse *response, id responseObject, NSError *error) {
         if (error != nil) {
             completion(error);
             return;
