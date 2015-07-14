@@ -8,7 +8,7 @@ Clone the repository to your desktop. All relevant files are provided in the *Cl
 TODO
 =======
  - Test the message API wrapper
- - Optomization
+ - Optimization
  - Clean code, standardize code structure
 
 ------------
