@@ -2,8 +2,8 @@
 //  VKClient+Vote.m
 //  VoatKit
 //
-//  Created by Christopher Luu on 7/9/15.
-//
+//  Created by Amar Ramachandran on 6/26/15.
+//  Copyright © 2015 AmarJayR. All rights reserved.
 //
 
 #import "VKClient+Vote.h"
@@ -71,7 +71,7 @@ static NSString *const VKClientVoteTypeSubmission = @"submission";
             return;
         }
 
-        NSError *newError = [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorPermissionDenied userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(dataDictionary[@"message"], @"")}];
+        NSError *newError = [NSError errorWithDomain:VKClientErrorDomain code:VKClientHTTPErrorBadRequest userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(dataDictionary[@"message"], @"")}];
         completion(newError);
     }];
 }

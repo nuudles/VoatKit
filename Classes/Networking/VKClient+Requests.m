@@ -274,7 +274,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completion)
             {
-                completion(nil, nil, [VKClient authenticationRequiredError]);
+                completion(nil, nil, [VKClient unauthorizedError]);
             }
         });
         
@@ -291,7 +291,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completion)
             {
-                completion(nil, nil, [VKClient authenticationRequiredError]);
+                completion(nil, nil, [VKClient unauthorizedError]);
             }
         });
         
@@ -308,7 +308,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completion)
             {
-                completion(nil, nil, [VKClient authenticationRequiredError]);
+                completion(nil, nil, [VKClient unauthorizedError]);
             }
         });
         

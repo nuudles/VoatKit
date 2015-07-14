@@ -10,22 +10,24 @@
 
 @implementation VKClient (Errors)
 
-const NSInteger VKClientErrorAuthenticationFailed = 1;
 
-const NSInteger VKClientErrorInvalidCredentials = 203;
-const NSInteger VKClientErrorRateLimited = 204;
+const NSInteger VKClientHTTPErrorBadRequest = 400;
+const NSInteger VKClientHTTPErrorForbidden = 403;
+const NSInteger VKClientHTTPErrorConflict = 409;
+const NSInteger VKClientHTTPErrorUnauthorized = 401;
+const NSInteger VKClientHTTPErrorNotFound = 404;
 
-const NSInteger VKClientErrorInvalidName = 401;
-const NSInteger VKClientErrorPermissionDenied = 401;
-const NSInteger VKClientErrorConflict = 401;
-const NSInteger VKClientErrorRecordNotFound = 404;
+const NSInteger VKServerHTTPErrorInternalServer = 500;
+const NSInteger VKServerHTTPErrorServiceUnavailable = 503;
+const NSInteger VKServerHTTPErrorGatewayTimeout = 504;
+const NSInteger VKServerHTTPErrorNotImplemented = 501;
 
-const NSInteger VKClientErrorInternalServerError = 501;
-const NSInteger VKClientErrorBadGateway = 502;
-const NSInteger VKClientErrorServiceUnavailable = 503;
-const NSInteger VKClientErrorTimedOut = 504;
-const NSInteger VKClientErrorNotImplemented = 501;
+const NSInteger VKRequestErrorAPIThrottleError = 429;
+const NSInteger VKRequestErrorInvalidAPIKey = 202;
+const NSInteger VKRequestErrorDisabledRestricted = 203;
+const NSInteger VKRequestErrorRecordNotFound = 204;
 
+const NSInteger VKClientErrorInvalidCredentials = 422;
 const NSInteger VKClientUnkownError = -1;
 
 + (NSError *)errorFromResponse:(NSHTTPURLResponse *)response responseString:(NSString *)responseString {
@@ -40,152 +42,146 @@ const NSInteger VKClientUnkownError = -1;
     if (jsonError)
         return jsonError;
     
-    if (![json objectForKey:@"error"]) //Does not have an error key
-        return nil;
+    if ([VKClient string:responseString containsSubstring:@"Api key is missing or invalid"]) return [VKClient apiKeyError];
+    
+    if ([VKClient string:responseString containsSubstring:@"ApiThrottleLimit"]) return [VKClient apiThrottleError];
     
     
-    if ([VKClient string:responseString containsSubstring:@"Api key is missing or invalid"]) return [VKClient authenticationRequiredError];
-    
-    if ([VKClient string:responseString containsSubstring:@"ApiThrottleLimit"]) return [VKClient rateLimitedError];
-
-    
-    switch (response.statusCode)
-    {
+    switch (response.statusCode) {
         case 400:
             if ([VKClient string:responseString containsSubstring:@"Credentials not found."]) return [VKClient invalidCredentialsError];
-            if ([VKClient string:responseString containsSubstring:@"NotFound"]) return [VKClient invalidNameError];
             
+            return [self badRequestError];
             break;
         case 403:
-            if ([VKClient string:responseString containsSubstring:@"USER_REQUIRED"]) return [VKClient authenticationRequiredError];
+            if ([VKClient string:responseString containsSubstring:@"USER_REQUIRED"]) return [VKClient unauthorizedError];
             
-            return [VKClient permissionDeniedError];
-            break;
-        case 404:
-            return [VKClient recordNotFound];
+            return [self forbiddenError];
             break;
         case 409:
-            return [VKClient conflictError];
+            return [self conflictError];
+            break;
+        case 401:
+            return [self unauthorizedError];
+            break;
+        case 404:
+            if ([json[@"error"][@"type"] isEqualToString:@"NotFound"]) return [self recordNotFoundError];
+            return [self notFoundError];
+            break;
+        case 429:
+            return [self apiThrottleError];
             break;
         case 500:
-            return [VKClient internalServerError];
-            break;
-        case 501:
-            return [VKClient notImplemented];
-            break;
-        case 502:
-            return [VKClient badGatewayError];
+            return [self internalServerError];
             break;
         case 503:
-            return [VKClient serviceUnavailableError];
+            return [self serviceUnavailableError];
             break;
         case 504:
-            return [VKClient timedOutError];
+            return [self gatewayTimeoutError];
+            break;
+        case 501:
+            return [self notImplementedError];
             break;
         default:
             break;
     }
     
-    
-    if ([VKClient string:responseString containsSubstring:@"error_description"]) return [VKClient permissionDeniedError];
-    
-    
+    if (json[@"error"]) return [VKClient unkownErrorWithMessage:json[@"error"][@"message"]];
     
     return nil;
 }
 
 
-+ (NSError *)authenticationRequiredError
-{
-    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Authentication required" failureReason:@"This method requires you to be signed in."];
-    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorAuthenticationFailed userInfo:userInfo];
++ (NSError *)badRequestError {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Bad Request" failureReason:@"This request was invalid and can not be completed."];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientHTTPErrorBadRequest userInfo:userInfo];
 }
 
-+ (NSError *)invalidCredentialsError
-{
++ (NSError *)forbiddenError {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Forbidden" failureReason:@"This request does not have the necessary permissions to be completed."];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientHTTPErrorForbidden userInfo:userInfo];
+}
+
++ (NSError *)conflictError {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Conflict" failureReason:@"This request could not be completed because of conflict in the request."];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientHTTPErrorConflict userInfo:userInfo];
+}
+
++ (NSError *)unauthorizedError {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Unauthorized" failureReason:@"This request does not have the authorization to be performed."];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientHTTPErrorUnauthorized userInfo:userInfo];
+}
+
++ (NSError *)notFoundError {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Not Found" failureReason:@"The requested endpoint does not exist."];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientHTTPErrorNotFound userInfo:userInfo];
+}
+
++ (NSError *)internalServerError {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Internal Server Error" failureReason:@"An internal server error has occured."];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKServerHTTPErrorInternalServer userInfo:userInfo];
+}
+
++ (NSError *)serviceUnavailableError {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Service Unavailable" failureReason:@"This method requires you to be signed in."];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKServerHTTPErrorServiceUnavailable userInfo:userInfo];
+}
+
++ (NSError *)gatewayTimeoutError {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Service Unavailable" failureReason:@"The requested service is not available."];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKServerHTTPErrorGatewayTimeout userInfo:userInfo];
+}
+
++ (NSError *)notImplementedError {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Not Implemented" failureReason:@"This request has not been implemented by the service."];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKServerHTTPErrorNotImplemented userInfo:userInfo];
+}
+
++ (NSError *)apiThrottleError {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"API Throttle Error" failureReason:@"This client is making too many requests."];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKRequestErrorAPIThrottleError userInfo:userInfo];
+}
+
++ (NSError *)apiKeyError {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Invalid API Key" failureReason:@"The API key provided with this request is invalid"];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKRequestErrorInvalidAPIKey userInfo:userInfo];
+}
+
++ (NSError *)apiDisabledRestrictedError {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"API Disabled / Restricted" failureReason:@"The API has been disabled or restricted."];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKRequestErrorDisabledRestricted userInfo:userInfo];
+}
+
++ (NSError *)recordNotFoundError {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Record Not Found" failureReason:@"The requested record does not exist."];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientHTTPErrorNotFound userInfo:userInfo];
+}
+
++ (NSError *)invalidCredentialsError {
     NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Invalid credentials" failureReason:@"Your username or password were incorrect."];
     return [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorInvalidCredentials userInfo:userInfo];
 }
 
-+ (NSError *)rateLimitedError
-{
-    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Rate limited" failureReason:@"You have exceeded voat's rate limit."];
-    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorRateLimited userInfo:userInfo];
-}
-
-+ (NSError *)permissionDeniedError
-{
-    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Permission denied" failureReason:@"You don't have permission to access this resource."];
-    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorPermissionDenied userInfo:userInfo];
-}
-
-+ (NSError *)conflictError
-{
-    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Conflict" failureReason:@"Your attempt to create a resource caused a conflict."];
-    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorConflict userInfo:userInfo];
-}
-
-+ (NSError *)internalServerError
-{
-    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Internal server error" failureReason:@"The voat servers suffered an internal server error."];
-    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorInternalServerError userInfo:userInfo];
-}
-
-+ (NSError *)badGatewayError
-{
-    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Bad gateway" failureReason:@"Bad gateway."];
-    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorBadGateway userInfo:userInfo];
-}
-
-+ (NSError *)serviceUnavailableError
-{
-    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Service unavailable" failureReason:@"The voat servers are unavailable."];
-    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorServiceUnavailable userInfo:userInfo];
-}
-
-+ (NSError *)timedOutError
-{
-    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Timed out" failureReason:@"The voat servers timed out."];
-    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorTimedOut userInfo:userInfo];
-}
-
-+ (NSError *)invalidNameError
-{
-    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Invalid name" failureReason:@"The name provided for the object was invalid."];
-    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorInvalidName userInfo:userInfo];
-}
-
-+ (NSError *)notImplemented
-{
-    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Not Implemented" failureReason:@"This feature has not yet been implemented by Voat.co"];
-    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorNotImplemented userInfo:userInfo];
-}
-
-+ (NSError *)unkownError
-{
++ (NSError *)unkownError {
     NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Unkown error" failureReason:@"An unkown error has occured."];
     return [NSError errorWithDomain:VKClientErrorDomain code:VKClientUnkownError userInfo:userInfo];
 }
 
-+ (NSError *)recordNotFound
-{
-    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Record not found." failureReason:@"The requested record was not found by voat"];
-    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientErrorRecordNotFound userInfo:userInfo];
++ (NSError *)unkownErrorWithMessage:(NSString*)message {
+    NSDictionary *userInfo = [VKClient userInfoWithDescription:@"Unkown error" failureReason:message];
+    return [NSError errorWithDomain:VKClientErrorDomain code:VKClientUnkownError userInfo:userInfo];
 }
 
 #pragma mark - Private
 
-+ (BOOL)string:(NSString *)string containsSubstring:(NSString *)substring
-{
++ (BOOL)string:(NSString *)string containsSubstring:(NSString *)substring {
     NSRange range = [string rangeOfString:substring];
     return (range.location != NSNotFound);
 }
 
-+ (NSDictionary *)userInfoWithDescription:(NSString *)description failureReason:(NSString *)failureReason
-{
++ (NSDictionary *)userInfoWithDescription:(NSString *)description failureReason:(NSString *)failureReason {
     return @{NSLocalizedDescriptionKey: NSLocalizedString(description, @""), NSLocalizedFailureReasonErrorKey: NSLocalizedString(failureReason, @"") };
 }
-
-
 
 @end

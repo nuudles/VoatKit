@@ -10,22 +10,23 @@
 
 @interface VKClient (Errors)
 
-extern const NSInteger VKClientErrorAuthenticationFailed;
+extern const NSInteger VKClientHTTPErrorBadRequest;
+extern const NSInteger VKClientHTTPErrorForbidden;
+extern const NSInteger VKClientHTTPErrorConflict;
+extern const NSInteger VKClientHTTPErrorUnauthorized;
+extern const NSInteger VKClientHTTPErrorNotFound;
+
+extern const NSInteger VKServerHTTPErrorInternalServer;
+extern const NSInteger VKServerHTTPErrorServiceUnavailable;
+extern const NSInteger VKServerHTTPErrorGatewayTimeout;
+extern const NSInteger VKServerHTTPErrorNotImplemented;
+
+extern const NSInteger VKRequestErrorAPIThrottleError;
+extern const NSInteger VKRequestErrorInvalidAPIKey;
+extern const NSInteger VKRequestErrorDisabledRestricted;
+extern const NSInteger VKRequestErrorRecordNotFound;
 
 extern const NSInteger VKClientErrorInvalidCredentials;
-extern const NSInteger VKClientErrorRateLimited;
-
-extern const NSInteger VKClientErrorInvalidName;
-extern const NSInteger VKClientErrorPermissionDenied;
-extern const NSInteger VKClientErrorConflict;
-
-extern const NSInteger VKClientErrorInternalServerError;
-extern const NSInteger VKClientErrorRecordNotFound;
-extern const NSInteger VKClientErrorBadGateway;
-extern const NSInteger VKClientErrorServiceUnavailable;
-extern const NSInteger VKClientErrorTimedOut;
-extern const NSInteger VKClientErrorNotImplemented;
-
 extern const NSInteger VKClientUnkownError;
 
 /**
@@ -33,11 +34,71 @@ extern const NSInteger VKClientUnkownError;
  */
 + (NSError *)errorFromResponse:(NSHTTPURLResponse *)response responseString:(NSString *)responseString;
 
+
 /**
- Returns an error that occurs when there is no user signed in and an attempt is made to access a resouce which requires authentication.
- For example, this error occurs when attempting to retrieve a list of subscribed subverses without being signed in.
+ Returns an error when Voat returns a 400 Bad Error. This can occur when a request is formatted incorrectly.
  */
-+ (NSError *)authenticationRequiredError;
++ (NSError *)badRequestError;
+
+/**
+ Returns an error when Voat returns a 403 Forbidden Error. This can occur when the user is not authenticated/authorized for a recource or action.
+ */
++ (NSError *)forbiddenError;
+
+/**
+ Returns an error when Voat returns a 409 Conflict Error. When this occurs the action/request was not performed because of a conflict on Voat's servers.
+ */
++ (NSError *)conflictError;
+
+/**
+ Returns an error when Voat returns a 401 Forbidden Error. This can occur when the user is not authenticated/authorized for a recource or action.
+ */
++ (NSError *)unauthorizedError;
+
+/**
+ Returns an error when Voat returns a 404 Not Found. This can occur when requesting a nonexistant endpoint.
+ */
++ (NSError *)notFoundError;
+
+/**
+ Returns an error when Voat returns a 500 Internal Server Error.
+ */
++ (NSError *)internalServerError;
+
+/**
+ Returns an error when Voat returns a 503 Service Unavailable Error. This can occur when the API is disabled.
+ */
++ (NSError *)serviceUnavailableError;
+
+/**
+ Returns an error when Voat returns a 504 Gateway Timeout Error.
+ */
++ (NSError *)gatewayTimeoutError;
+
+/**
+ Returns an error when Voat returns a 501 Not Implemented Error. This can occur if requesting an endpoint that hasn't been implemented.
+ */
++ (NSError *)notImplementedError;
+
+/**
+ Returns an error when the client has reached their throttle limit.
+ */
++ (NSError *)apiThrottleError;
+
+/**
+ Returns an error when an invalid API key was sent with the request.
+ */
++ (NSError *)apiKeyError;
+
+/**
+ Returns an error when the API is disabled or restricted.
+ */
++ (NSError *)apiDisabledRestrictedError;
+
+/**
+ Returns an error when the requested record could not be found (404).
+ */
++ (NSError *)recordNotFoundError;
 
 /**
  Returns an error that occurs when the user attempts to sign in but either the username or password were incorrect.
@@ -45,43 +106,13 @@ extern const NSInteger VKClientUnkownError;
 + (NSError *)invalidCredentialsError;
 
 /**
- Returns an error that occurs when the user is rate limited.
- */
-+ (NSError *)rateLimitedError;
-
-/**
- Returns an error that occurs when you provide an invalid subverse name.
- */
-+ (NSError *)invalidNameError;
-
-/**
- Returns an error that occurs when the user was denied access to a particular resource, such as a subverses.
- */
-+ (NSError *)permissionDeniedError;
-
-/**
- Returns an error that occurs when the voat servers are unavailable.
- */
-+ (NSError *)serviceUnavailableError;
-
-/**
- Returns an error that occurs when the voat servers timed out.
- */
-+ (NSError *)timedOutError;
-
-/**
- Returns an error the voat API returns 501 not implemented
- */
-+ (NSError *)notImplemented;
-
-/**
  Returns an error that occurs when we know there's an error but it does not fit any error type
  */
 + (NSError *)unkownError;
 
-
 /**
- Returns an error that occurs when we know there's an error but it does not fit any error type
+ Returns an error that occurs when we know there's an error but it does not fit any error type. Includes the error message.
  */
-+ (NSError *)recordNotFound;
++ (NSError *)unkownErrorWithMessage:(NSString*)message;
+
 @end
