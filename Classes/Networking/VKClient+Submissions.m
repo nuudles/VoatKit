@@ -12,6 +12,7 @@
 #import "VKClient.h"
 #import "VKClient+Errors.h"
 #import "VKClient+Authentication.h"
+#import "VKObjectBuilder.h"
 
 @implementation VKClient (Submissions)
 
@@ -91,7 +92,9 @@
 - (NSURLSessionDataTask *)submissionSubmissionTaskWithParameters:(NSDictionary *)parameters subverse:(NSString*)subverse completion:(VKObjectCompletionBlock)completion
 {
     return [self postPath:[NSString stringWithFormat:@"api/v1/v/%@", subverse] parameters:parameters completion:^(NSHTTPURLResponse *response, id responseObject, NSError *error) {
-        completion(responseObject, error);
+        NSDictionary *responseDict = responseObject;
+        id object = [VKObjectBuilder objectFromJSON:responseDict[@"data"]];
+        completion(object, error);
     }];
 }
 
