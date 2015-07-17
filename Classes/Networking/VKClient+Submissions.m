@@ -40,17 +40,7 @@
     NSParameterAssert(submissionID);
     
     NSString *path = [NSString stringWithFormat:@"api/v1/submissions/%@", submissionID];
-    
-    return [self listingTaskWithPath:path parameters:nil searchOptions:nil completion:^(NSArray *links, VKSearchOptions *searchOptions, NSError *error) {
-        if (!error)
-        {
-            completion([links firstObject], nil);
-        }
-        else
-        {
-            completion(nil, error);
-        }
-    }];
+    return [self getWithResponse:path parameters:nil completion:completion];
 }
 
 #pragma mark - Submitting
