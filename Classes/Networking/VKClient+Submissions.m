@@ -81,11 +81,7 @@
 
 - (NSURLSessionDataTask *)submissionSubmissionTaskWithParameters:(NSDictionary *)parameters subverse:(NSString*)subverse completion:(VKObjectCompletionBlock)completion
 {
-    return [self postPath:[NSString stringWithFormat:@"api/v1/v/%@", subverse] parameters:parameters completion:^(NSHTTPURLResponse *response, id responseObject, NSError *error) {
-        NSDictionary *responseDict = responseObject;
-        id object = [VKObjectBuilder objectFromJSON:responseDict[@"data"]];
-        completion(object, error);
-    }];
+    return [self postWithResponse:[NSString stringWithFormat:@"api/v1/v/%@", subverse] parameters:parameters completion:completion];
 }
 
 
