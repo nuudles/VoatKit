@@ -53,7 +53,12 @@
                         response = [responseObject lastObject];
                     }
                     
-                    NSArray *objects = [self objectsFromListingResponse:response];
+                    NSArray *objects;
+                    if ([response[@"data"] isKindOfClass:[NSArray class]]) {
+                        objects = [self objectsFromListingResponse:response];
+                    } else {
+                        objects = [VKObjectBuilder objectFromJSON:response[@"data"]];
+                    }
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         completion(objects, nil);
