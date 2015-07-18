@@ -59,7 +59,7 @@
 }
 
 - (NSURLSessionDataTask *)submissionsByUserWithUsername:(NSString *)username searchOptions:(VKSearchOptions *)searchOptions completion:(VKListingCompletionBlock)completion {
-     return [self listingTaskWithPath:[NSString stringWithFormat:@"api/v1/u/%@/submissions", username] parameters:nil searchOptions:searchOptions completion:completion];
+    return [self listingTaskWithPath:[NSString stringWithFormat:@"api/v1/u/%@/submissions", username] parameters:nil searchOptions:searchOptions completion:completion];
 }
 
 - (NSURLSessionDataTask *)subscriptionsForUser:(VKUser *)user searchOptions:(VKSearchOptions *)searchOptions completion:(VKListingCompletionBlock)completion {

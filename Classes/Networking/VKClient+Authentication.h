@@ -30,7 +30,7 @@
  @param token The user's token.
  @param token The user's token type.
  @param completion The block to be executed upon completion of the request. Its only argument is any error that occured
-
+ 
  @note: this does not make a request to the voat.co API, instead it sets local variables. The only 'authentication' that happens is the verification that the username exists when the method makes its userWithUsername call.
  @note This method signs out the current client before attempting to sign in.
  */
@@ -40,7 +40,7 @@
  Generates a new token for the same user.
  
  @param completion The block to be executed upon completion of the request. Its only argument is any error that has occured
-  */
+ */
 - (NSURLSessionDataTask *)updateToken:(VKCompletionBlock)completion;
 
 /**

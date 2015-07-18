@@ -42,9 +42,9 @@ const NSInteger VKClientUnkownError = -1;
     if (jsonError)
         return jsonError;
     
-    if ([VKClient string:responseString containsSubstring:@"Api key is missing or invalid"]) return [VKClient apiKeyError];
+    if ([json[@"error"][@"message"] isEqualToString:@"Api key is missing or invalid"]) return [VKClient apiKeyError];
     
-    if ([VKClient string:responseString containsSubstring:@"ApiThrottleLimit"]) return [VKClient apiThrottleError];
+    if ([json[@"error"][@"type"] isEqualToString:@"ApiThrottleLimit"]) return [VKClient apiThrottleError];
     
     
     switch (response.statusCode) {

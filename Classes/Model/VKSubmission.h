@@ -46,7 +46,7 @@ typedef NS_ENUM(NSUInteger, VKLinkType) {
 @property (nonatomic, copy, readonly) NSString* title;
 
 /**
-The type of submission. 
+ The type of submission.
  Values: 1 for Self Posts, 2 for Link Posts
  */
 @property (nonatomic, assign, readonly) VKLinkType postType;

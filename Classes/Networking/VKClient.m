@@ -76,11 +76,15 @@ NSString * const VKClientErrorDomain = @"VKClientErrorDomain";
 + (NSURL *)APIBaseHTTPSURL {
     //this is temporary.... the voat beta api site is private
     /*NSString *path = [[NSBundle mainBundle] pathForResource: @"keys" ofType: @"plist"];
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
-    
-    return [dict objectForKey:@"apiBaseURL"];*/
+     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
+     
+     return [dict objectForKey:@"apiBaseURL"];*/
     
     return [NSURL URLWithString:@"https://fakevout.azurewebsites.net/"];
+}
+
+- (void)setCurrentUser:(VKUser *)currentUser {
+    _currentUser = currentUser;
 }
 
 @end

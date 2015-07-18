@@ -26,7 +26,7 @@
 #pragma mark - AFURLRequestSerialization
 
 - (id)responseObjectForResponse:(NSHTTPURLResponse *)response data:(NSData *)data error:(NSError **)error
-{    
+{
     NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
     NSError *responseError = [VKClient errorFromResponse:(NSHTTPURLResponse *)response responseString:responseString];
@@ -56,7 +56,7 @@
     }
     
     return responseObject;
-
+    
 }
 
 @end

@@ -37,18 +37,18 @@
         
         return @((VKMessageType)[type intValue]);
         /*
-        if([type  isEqual: @1])
-            return @(VKMessageTypeInbox);
-        if([type isEqual:@2])
-            return @(VKMessageTypeSent);
-        if([type isEqual:@4])
-            return @(VKMessageTypeComment);
-        if([type isEqual:@8])
-            return @(VKMessageTypeSubmission);
-        if([type isEqual:@16])
-            return @(VKMessageTypeMention);
-        if([type isEqual:@31])
-            return @(VKMessageTypeAll);*/
+         if([type  isEqual: @1])
+         return @(VKMessageTypeInbox);
+         if([type isEqual:@2])
+         return @(VKMessageTypeSent);
+         if([type isEqual:@4])
+         return @(VKMessageTypeComment);
+         if([type isEqual:@8])
+         return @(VKMessageTypeSubmission);
+         if([type isEqual:@16])
+         return @(VKMessageTypeMention);
+         if([type isEqual:@31])
+         return @(VKMessageTypeAll);*/
         
         return nil;
     }];

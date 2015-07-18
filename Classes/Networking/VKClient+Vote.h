@@ -30,7 +30,7 @@
 
 /**
  Revokes a vote for a submission.
-
+ 
  @param submission The submission to revoke the vote for.
  @return The NSURLSessionDataTask for the request.
  */

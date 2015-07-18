@@ -22,10 +22,10 @@
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
     if (JSONDictionary[@"creationDate"] != nil || JSONDictionary[@"date"] != nil)
         return [VKCreated class];
-
+    
     if (JSONDictionary[@"recipient"] != nil)
         return [VKMessage class];
-
+    
     
     NSAssert(NO, @"No matching class for the JSON dictionary '%@'.", JSONDictionary);
     return self;

@@ -68,7 +68,7 @@ NSString * VKStringFromUserContentSortingMethod(VKUserContentSortingMethod sorti
     if(self.page)
         [keyValuePairs setObject:self.page forKey:@"page"];
     if(self.search)
-        [keyValuePairs setObject:self.page forKey:@"search"];
+        [keyValuePairs setObject:self.search forKey:@"search"];
     if(self.depth != NULL)
         [keyValuePairs setObject:self.depth forKey:@"depth"];
     
@@ -77,28 +77,28 @@ NSString * VKStringFromUserContentSortingMethod(VKUserContentSortingMethod sorti
 
 
 -(void)searchOptionsFromQueryString:(NSString*) queryString {
-    //span=1&sort=2
-    NSArray* keyValuePairs = [queryString componentsSeparatedByString:@"&"];
-    NSMutableDictionary* dictionaryPairs = [[NSMutableDictionary alloc] initWithCapacity:[keyValuePairs count]];
-    
-    for (NSString* keyValue in keyValuePairs) {
-        NSString* key = [keyValue componentsSeparatedByString:@"="][0];
-        if (![self respondsToSelector:NSSelectorFromString(key)]) {
-            continue;
-        }
-        
-        NSString* value = [keyValue componentsSeparatedByString:@"="][1];
-        
-        NSLog(@"CLASS: %@", [[self valueForKey:key] class]);
-        if ([[[self valueForKey:key] class] isSubclassOfClass:[NSNumber class]]) {
-            NSLog(@"IS SUBCLASS: %@", key);
-            [self setValue:[NSNumber numberWithInteger:[value integerValue]] forKey:key];
-            continue;
-        }
-        
-        [self setValue:value forKey:key];
-        
-    }
+    /*//span=1&sort=2
+     NSArray* keyValuePairs = [queryString componentsSeparatedByString:@"&"];
+     NSMutableDictionary* dictionaryPairs = [[NSMutableDictionary alloc] initWithCapacity:[keyValuePairs count]];
+     
+     for (NSString* keyValue in keyValuePairs) {
+     NSString* key = [keyValue componentsSeparatedByString:@"="][0];
+     if (![self respondsToSelector:NSSelectorFromString(key)]) {
+     continue;
+     }
+     
+     NSString* value = [keyValue componentsSeparatedByString:@"="][1];
+     
+     NSLog(@"CLASS: %@", [[self valueForKey:key] class]);
+     if ([[[self valueForKey:key] class] isSubclassOfClass:[NSNumber class]]) {
+     NSLog(@"IS SUBCLASS: %@", key);
+     [self setValue:[NSNumber numberWithInteger:[value integerValue]] forKey:key];
+     continue;
+     }
+     
+     [self setValue:value forKey:key];
+     
+     }*/
 }
 
 

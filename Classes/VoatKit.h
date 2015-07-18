@@ -26,6 +26,7 @@
 #import "VKMessage.h"
 #import "VKSearchOptions.h"
 #import "VKSubmission.h"
+#import "VKSubscription.h"
 #import "VKSubverse.h"
 #import "VKThing.h"
 #import "VKUser.h"

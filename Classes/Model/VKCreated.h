@@ -12,7 +12,7 @@
 @interface VKCreated : VKThing
 
 /**
- Date the item was submitted/created. 
+ Date the item was submitted/created.
  @note: Do not use this property for comments as it will be null
  */
 @property (nonatomic, strong) NSDate *creationDate;

@@ -32,29 +32,29 @@
 #pragma mark - MTLModel
 
 + (NSValueTransformer *)commentPointsJSONTransformer {
-    return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:VKCountable.class];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[VKCountable class]];
 }
 
 + (NSValueTransformer *)submissionPointsJSONTransformer {
-    return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:VKCountable.class];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[VKCountable class]];
 }
 
 + (NSValueTransformer *)commentVotingJSONTransformer {
-    return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:VKCountable.class];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[VKCountable class]];
 }
 
 + (NSValueTransformer *)submissionVotingJSONTransformer {
-    return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:VKCountable.class];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:[VKCountable class]];
 }
 
 + (NSValueTransformer *)registrationDateJSONTransformer {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-
+    
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *dateString, BOOL *success, NSError *__autoreleasing *error) {
         return [dateFormatter dateFromString:dateString];
     }];
-
+    
     return nil;
 }
 

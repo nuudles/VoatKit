@@ -32,7 +32,7 @@ extern NSString * VKStringFromUserContentSortingMethod(VKUserContentSortingMetho
 /**
  The total number of things to return. This is 25 by default, and limited to 50.
  */
-@property (nonatomic, assign) NSNumber* count;
+@property (nonatomic, copy) NSNumber* count;
 
 
 /**
@@ -49,23 +49,23 @@ extern NSString * VKStringFromUserContentSortingMethod(VKUserContentSortingMetho
 /**
  The index to start from
  */
-@property (nonatomic, assign) NSNumber* index;
+@property (nonatomic, copy) NSNumber* index;
 
 /**
  The page to start from
  @note: setting this will override the index property
  */
-@property (nonatomic, assign) NSNumber* page;
+@property (nonatomic, copy) NSNumber* page;
 
 /**
  The search value to match for submissions or comments
  */
-@property (nonatomic, assign) NSString* search;
+@property (nonatomic, copy) NSString* search;
 
 /**
  Specifies the depth of comment tree to retrieve. Used only for comment queries.
  */
-@property (nonatomic, assign) NSNumber* depth;
+@property (nonatomic, copy) NSNumber* depth;
 
 
 /**

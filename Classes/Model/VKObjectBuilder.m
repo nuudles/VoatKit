@@ -28,7 +28,7 @@
 + (id)objectFromJSON:(NSDictionary *)JSON
 {
     NSError *error = nil;
-
+    
     if (JSON[@"bio"]) {
         //Object type is VKUser
         id model = [MTLJSONAdapter modelOfClass:[VKUser class] fromJSONDictionary:JSON error:&error];
@@ -46,7 +46,7 @@
     else if (JSON[@"type"] != nil && JSON[@"typeName"] != nil && JSON[@"name"] != nil) {
         //Object type is VKSubscription
         id model = [MTLJSONAdapter modelOfClass:[VKSubscription class] fromJSONDictionary:JSON error:&error];
-
+        
         if (!error)
         {
             return model;
@@ -69,7 +69,7 @@
         NSLog(@"Failed to build model: %@", error);
         return nil;
     }
-
+    
 }
 
 @end

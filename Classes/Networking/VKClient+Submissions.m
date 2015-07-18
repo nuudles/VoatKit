@@ -12,6 +12,7 @@
 #import "VKClient.h"
 #import "VKClient+Errors.h"
 #import "VKClient+Authentication.h"
+#import "VKObjectBuilder.h"
 
 @implementation VKClient (Submissions)
 
@@ -39,17 +40,7 @@
     NSParameterAssert(submissionID);
     
     NSString *path = [NSString stringWithFormat:@"api/v1/submissions/%@", submissionID];
-    
-    return [self listingTaskWithPath:path parameters:nil searchOptions:nil completion:^(NSArray *links, VKSearchOptions *searchOptions, NSError *error) {
-        if (!error)
-        {
-            completion([links firstObject], nil);
-        }
-        else
-        {
-            completion(nil, error);
-        }
-    }];
+    return [self getWithResponse:path parameters:nil completion:completion];
 }
 
 #pragma mark - Submitting
@@ -67,7 +58,7 @@
     
     [parameters setObject:title forKey:@"title"];
     [parameters setObject:[URL absoluteString] forKey:@"url"];
-
+    
     
     return [self submissionSubmissionTaskWithParameters:parameters subverse:subverseName completion:completion];
 }
@@ -90,9 +81,7 @@
 
 - (NSURLSessionDataTask *)submissionSubmissionTaskWithParameters:(NSDictionary *)parameters subverse:(NSString*)subverse completion:(VKObjectCompletionBlock)completion
 {
-    return [self postPath:[NSString stringWithFormat:@"api/v1/v/%@", subverse] parameters:parameters completion:^(NSHTTPURLResponse *response, id responseObject, NSError *error) {
-        completion(responseObject, error);
-    }];
+    return [self postWithResponse:[NSString stringWithFormat:@"api/v1/v/%@", subverse] parameters:parameters completion:completion];
 }
 
 

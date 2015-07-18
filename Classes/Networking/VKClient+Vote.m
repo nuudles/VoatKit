@@ -70,7 +70,7 @@ static NSString *const VKClientVoteTypeSubmission = @"submission";
             completion(nil);
             return;
         }
-
+        
         NSError *newError = [NSError errorWithDomain:VKClientErrorDomain code:VKClientHTTPErrorBadRequest userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(dataDictionary[@"message"], @"")}];
         completion(newError);
     }];
