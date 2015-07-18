@@ -19,17 +19,17 @@ typedef NS_ENUM(NSUInteger, VKVoteStatus) {
 /**
  The total number of upvotes.
  */
-@property (nonatomic, assign, readonly) NSNumber* upvotes;
+@property (nonatomic, copy, readonly) NSNumber* upvotes;
 
 /**
  The total number of downvotes.
  */
-@property (nonatomic, assign, readonly) NSNumber* downvotes;
+@property (nonatomic, copy, readonly) NSNumber* downvotes;
 
 /**
  The object's score.
  */
-@property (nonatomic, assign, readonly) NSNumber* score;
+@property (nonatomic, copy, readonly) NSNumber* score;
 
 /**
  The current user's vote status for this object.
