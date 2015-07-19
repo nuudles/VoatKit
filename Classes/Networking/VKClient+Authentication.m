@@ -79,16 +79,14 @@
     self.expirationDate = expirationDate;
     
     return [self userWithUsername:username completion:^(id object, NSError *error) {
-        if (error)
-        {
-            if (completion)
-            {
-                completion(error);
-            }
-        }
-        else
+        if (object)
         {
             self.currentUser = object;
+        }
+
+        if (completion)
+        {
+            completion(error);
         }
     }];
 }
