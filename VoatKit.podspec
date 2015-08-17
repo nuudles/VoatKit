@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'VoatKit'
-  s.version  = '0.5.0'
+  s.version  = '0.5.1'
   s.platform = :ios, '7.0'
   s.summary  = 'Objective-C Voat API Wrapper'
   s.homepage = 'https://github.com/AmarJayR/VoatKit'
