@@ -13,16 +13,16 @@
 /**
  The total number of upvotes.
  */
-@property (nonatomic, strong, readonly) NSNumber* upCount;
+@property (nonatomic, copy, readonly) NSNumber* upCount;
 
 /**
  The total number of downvotes.
  */
-@property (nonatomic, strong, readonly) NSNumber* downCount;
+@property (nonatomic, copy, readonly) NSNumber* downCount;
 
 /**
  The total sum.
  */
-@property (nonatomic, strong, readonly) NSNumber* sum;
+@property (nonatomic, copy, readonly) NSNumber* sum;
 
 @end
