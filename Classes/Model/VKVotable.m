@@ -12,7 +12,7 @@
 
 @interface VKVotable ()
 
-@property (nonatomic, assign) NSNumber* score;
+@property (nonatomic, copy) NSNumber* score;
 
 @end
 
