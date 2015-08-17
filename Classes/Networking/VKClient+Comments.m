@@ -13,13 +13,13 @@
 
 #pragma mark - Getting Comments
 
-- (NSURLSessionDataTask *)commentsForSubmission:(VKSubmission *)submission searchOptions:(VKSearchOptions*)searchOptions completion:(VKArrayCompletionBlock)completion {
+- (NSURLSessionDataTask *)commentsForSubmission:(VKSubmission *)submission searchOptions:(VKSearchOptions*)searchOptions completion:(VKListingCompletionBlock)completion {
     NSParameterAssert(submission);
     
     return [self commentsForSubmissionWithIdentifier:submission.submissionID withSubverse:submission.subverse searchOptions:searchOptions completion:completion];
 }
 
-- (NSURLSessionDataTask *)commentsForSubmissionWithIdentifier:(NSNumber *)submissionIdentifier withSubverse:(NSString*)subverse searchOptions:(VKSearchOptions*)searchOptions completion:(VKArrayCompletionBlock)completion {
+- (NSURLSessionDataTask *)commentsForSubmissionWithIdentifier:(NSNumber *)submissionIdentifier withSubverse:(NSString*)subverse searchOptions:(VKSearchOptions*)searchOptions completion:(VKListingCompletionBlock)completion {
     NSParameterAssert(submissionIdentifier);
     NSParameterAssert(subverse);
     

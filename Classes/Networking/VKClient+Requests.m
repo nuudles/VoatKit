@@ -22,7 +22,7 @@
     NSParameterAssert(path);
     
     return [self postPath:path parameters:parameters completion:^(NSHTTPURLResponse *response, id responseObject, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(self.completionQueue, ^{
             if (completion)
             {
                 completion(error);
@@ -38,7 +38,7 @@
     [taskParameters addEntriesFromDictionary:parameters];
     
     return [self postPath:path parameters:parameters completion:^(NSHTTPURLResponse *response, id responseObject, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(self.completionQueue, ^{
             if (!completion)
             {
                 return;
@@ -60,7 +60,7 @@
                         objects = [VKObjectBuilder objectFromJSON:response[@"data"]];
                     }
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                    dispatch_async(self.completionQueue, ^{
                         completion(objects, nil);
                     });
                 });
@@ -80,7 +80,7 @@
     [taskParameters addEntriesFromDictionary:parameters];
     
     return [self getPath:path parameters:parameters completion:^(NSHTTPURLResponse *response, id responseObject, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(self.completionQueue, ^{
             if (!completion)
             {
                 return;
@@ -92,7 +92,7 @@
                     NSDictionary *response = responseObject;
                     id object = [VKObjectBuilder objectFromJSON:response[@"data"]];
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                    dispatch_async(self.completionQueue, ^{
                         completion(object, nil);
                     });
                 });
@@ -127,7 +127,7 @@
                 
                 NSArray *objects = [self objectsFromListingResponse:response];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_async(self.completionQueue, ^{
                     NSLog(@"PARAMETERS");
                     completion(objects, nil, nil);
                 });
@@ -160,7 +160,7 @@
                 
                 NSArray *objects = [self objectsFromListingResponse:response];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_async(self.completionQueue, ^{
                     completion(objects, searchOptions, nil);
                 });
             });
@@ -188,7 +188,7 @@
         
         if (responseObject)
         {
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(self.completionQueue, ^{
                 completion(responseObject, nil);
             });
         }
@@ -223,7 +223,7 @@
                 
                 NSArray *objects = [self objectsFromListingResponse:response];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_async(self.completionQueue, ^{
                     completion(objects, nil);
                 });
             });
@@ -276,7 +276,7 @@
 {
     if (![self isSignedIn])
     {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(self.completionQueue, ^{
             if (completion)
             {
                 completion(nil, nil, [VKClient unauthorizedError]);
@@ -293,7 +293,7 @@
 {
     if (![self isSignedIn])
     {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(self.completionQueue, ^{
             if (completion)
             {
                 completion(nil, nil, [VKClient unauthorizedError]);
@@ -310,7 +310,7 @@
 {
     if (![self isSignedIn])
     {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(self.completionQueue, ^{
             if (completion)
             {
                 completion(nil, nil, [VKClient unauthorizedError]);
@@ -342,12 +342,10 @@
         NSDictionary *headers = [((NSHTTPURLResponse *)response) allHeaderFields];
         MONUnusedParameter(headers);
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (completion)
-            {
-                completion((NSHTTPURLResponse *)response, responseObject, error);
-            }
-        });
+        if (completion)
+        {
+            completion((NSHTTPURLResponse *)response, responseObject, error);
+        }
     }];
     
     [task resume];

@@ -23,7 +23,7 @@
     //TODO: CHECK API TO SEE IF IMPLEMENTED: http://fakevout.azurewebsites.net/api/help/api/get-api-v1-u-saved
     if (![self isSignedIn])
     {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(self.completionQueue, ^{
             if (completion)
             {
                 completion(nil, nil, [VKClient unauthorizedError]);

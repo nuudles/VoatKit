@@ -24,7 +24,7 @@
  @param searchOptions The search options specifying the order of the response
  @return The NSURLSessionDataTask for the request.
  */
-- (NSURLSessionDataTask *)commentsForSubmission:(VKSubmission *)submission searchOptions:(VKSearchOptions*)searchOptions completion:(VKArrayCompletionBlock)completion;
+- (NSURLSessionDataTask *)commentsForSubmission:(VKSubmission *)submission searchOptions:(VKSearchOptions*)searchOptions completion:(VKListingCompletionBlock)completion;
 
 /**
  Gets all comments for a submision. Defaults to VKCommentSortTop sort order.
@@ -35,7 +35,7 @@
  @param completion An optional block to be executed upon request completion. It takes two arguments: an array of VKComments and any error that occurred.
  @return The NSURLSessionDataTask for the request.
  */
-- (NSURLSessionDataTask *)commentsForSubmissionWithIdentifier:(NSNumber *)submissionIdentifier withSubverse:(NSString*)subverse searchOptions:(VKSearchOptions*)searchOptions completion:(VKArrayCompletionBlock)completion;
+- (NSURLSessionDataTask *)commentsForSubmissionWithIdentifier:(NSNumber *)submissionIdentifier withSubverse:(NSString*)subverse searchOptions:(VKSearchOptions*)searchOptions completion:(VKListingCompletionBlock)completion;
 
 
 #pragma mark - Submitting Comments
