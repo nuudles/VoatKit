@@ -12,7 +12,7 @@
 
 @interface VKVotable ()
 
-@property (nonatomic, copy, readonly) NSNumber* score;
+//@property (nonatomic, copy, readwrite) NSNumber* score;
 
 @end
 
@@ -49,7 +49,6 @@
     return (self.voteStatus != VKVoteStatusNone);
 }
 
-//TODO: REMAKE THIS DEPENDING ON API CHANGE
 + (Class)classForParsingJSONDictionary:(NSDictionary *)JSONDictionary {
     if (JSONDictionary[@"childCount"] != nil && JSONDictionary[@"level"] != nil)
         return [VKComment class];
