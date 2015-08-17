@@ -3,7 +3,7 @@ An Objective-C [voat.co](voat.co) API wrapper based on [RedditKit](https://githu
 
 Installation
 =======
-Clone the repository to your desktop. All relevant files are provided in the *Classes* directory. If you wish to use this wrapper, all those classs must be present in your project. An example project is provided, but has not yet been implemented. To run the Example project successfully you must install the required dependencies. A cocoapod pod file is provided with all the necessary dependencies as well as a local reference to VoatKit. To setup the project with cocoapods, just run pod install.
+Using cocoapods simply add `pod 'VoatKit'`
 
 TODO
 =======
