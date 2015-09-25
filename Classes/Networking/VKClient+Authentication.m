@@ -77,18 +77,29 @@
     self.tokenType = tokenType;
     self.password = password;
     self.expirationDate = expirationDate;
-    
-    return [self userWithUsername:username completion:^(id object, NSError *error) {
-        if (object)
-        {
-            self.currentUser = object;
-        }
 
-        if (completion)
-        {
-            completion(error);
-        }
-    }];
+    if ([self isValidToken])
+    {
+        return [self userWithUsername:username completion:^(id object, NSError *error) {
+            if (object)
+            {
+                self.currentUser = object;
+            }
+
+            if (completion)
+            {
+                completion(error);
+            }
+        }];
+    }
+    else
+    {
+        self.expirationDate = nil;
+        self.tokenType = nil;
+        self.accessToken = nil;
+
+        return [self signInWithUsername:username password:self.password completion:completion];
+    }
 }
 
 - (NSURLSessionDataTask *)updateToken:(VKCompletionBlock)completion {
